@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Flash Master Pro</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ffcc00">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<style>
+@keyframes gold-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: #111;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  padding: 16px 10px 50px;
+}
+.card {
+  background: linear-gradient(-45deg, #000000, #1a1a1a, #2b2100, #000000);
+  background-size: 400% 400%;
+  animation: gold-flow 12s ease infinite;
+  color: #fff;
+  padding: 28px 18px 32px;
+  text-align: center;
+  border: 2px solid #ffcc00;
+  border-radius: 22px;
+  max-width: 560px;
+  margin: 0 auto;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.8), 0 0 25px rgba(255,204,0,0.07);
+}
+.logo img { max-width: 150px; height: auto; margin-bottom: 14px; }
+h1 { color: #ffcc00; text-transform: uppercase; font-size: 1.35rem; letter-spacing: 3px; margin-bottom: 4px; }
+.brand { font-size: 10px; color: #777; letter-spacing: 2px; margin-bottom: 16px; }
+.badge {
+  display: inline-block;
+  background: rgba(255,204,0,0.08);
+  border: 1px solid rgba(255,204,0,0.3);
+  color: #ffcc00;
+  font-size: 9px;
+  letter-spacing: 1px;
+  padding: 3px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.info {
+  font-size: 11px;
+  line-height: 1.7;
+  color: #bbb;
+  text-align: left;
+  margin-bottom: 22px;
+  background: rgba(255,204,0,0.04);
+  padding: 13px 15px;
+  border-radius: 10px;
+  border: 1px dashed rgba(255,204,0,0.25);
+}
+.info strong { color: #ffcc00; }
+.sec {
+  font-size: 10px;
+  color: #ffcc00;
+  margin-bottom: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  opacity: 0.8;
+  text-align: left;
+}
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; margin-bottom: 16px; }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 16px; }
+.row { display: flex; gap: 6px; }
+.row select:first-child { flex: 2; }
+.row select:last-child  { flex: 1; }
+label {
+  display: block;
+  font-size: 9px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  text-align: left;
+}
+select {
+  width: 100%;
+  background: #1a1a1a;
+  border: 1.5px solid #383838;
+  color: #fff;
+  padding: 10px 8px;
+  border-radius: 7px;
+  font-size: 14px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+select:focus { border-color: #ffcc00; }
+hr { border: none; border-top: 1px solid rgba(255,204,0,0.12); margin: 18px 0; }
+.btns { display: flex; gap: 10px; margin: 18px 0 14px; }
+.btn {
+  flex: 1;
+  padding: 16px 6px;
+  border-radius: 9px;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1px;
+  transition: all 0.2s;
+  outline: none;
+  border: 2px solid #ffcc00;
+}
+.btn-std { background: transparent; color: #ffcc00; }
+.btn-std:active { background: rgba(255,204,0,0.1); }
+.btn-opt { background: #ffcc00; color: #000; box-shadow: 0 0 16px rgba(255,204,0,0.3); }
+.btn-opt:active { background: #ffd633; }
+#result {
+  display: none;
+  animation: fadeIn 0.3s ease;
+  padding: 20px 14px;
+  background: rgba(255,204,0,0.06);
+  border-radius: 14px;
+  border: 1.5px solid #ffcc00;
+}
+.rl { font-size: 9px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+.rv {
+  font-size: 44px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 22px rgba(255,204,0,0.45);
+  line-height: 1.1;
+}
+.rc { font-size: 11px; color: #ffcc00; margin-top: 9px; }
+.rd { font-size: 10px; color: #666; margin-top: 7px; line-height: 1.5; }
+.err { color: #ff6b6b; font-size: 11px; margin-top: 8px; display: none; }
+.site-btn {
+  display: block;
+  margin-top: 22px;
+  padding: 13px;
+  background: #ffcc00;
+  color: #000;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  border-radius: 50px;
+}
+@media (max-width: 360px) {
+  .g3 { grid-template-columns: 1fr 1fr; }
+  .rv { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="logo">
+    <img src="https://static.wixstatic.com/media/aed457_064e14f30baa4a4c8a4c3c39ffaabef9~mv2.png"
+         alt="Souvenir Nomade"
+         onerror="this.style.display='none'">
+  </div>
+
+  <h1>⚡ Flash Master Pro</h1>
+  <div class="brand">Souvenir Nomade</div>
+  <div class="badge">Version Alpha — Posemètre Flash</div>
+
+  <div class="info">
+    <strong>Comment utiliser :</strong><br>
+    1. Réglez les paramètres boîtier (ouverture cible, vitesse, ISO).<br>
+    2. Choisissez le rôle du flash et la puissance de test utilisée.<br>
+    3. Entrez la mesure lue sur votre flashmètre.<br>
+    4. <strong>Standard</strong> = calcul direct. <strong>Opti +1.33 IL</strong> = préservation hautes lumières.
+  </div>
+
+  <!-- 1. BOÎTIER -->
+  <div class="sec">① Réglages boîtier</div>
+  <div class="g3">
+    <div>
+      <label>Ouverture (f/)</label>
+      <select id="f_target">
+        <option value="1.0">f/1.0</option>
+        <option value="1.2">f/1.2</option>
+        <option value="1.4">f/1.4</option>
+        <option value="1.8">f/1.8</option>
+        <option value="2.0">f/2.0</option>
+        <option value="2.8">f/2.8</option>
+        <option value="4.0">f/4.0</option>
+        <option value="5.6" selected>f/5.6</option>
+        <option value="8.0">f/8.0</option>
+        <option value="11">f/11</option>
+        <option value="16">f/16</option>
+        <option value="22">f/22</option>
+        <option value="32">f/32</option>
+      </select>
+    </div>
+    <div>
+      <label>Vitesse synchro</label>
+      <select id="v_apn">
+        <option value="30">1/30</option>
+        <option value="45">1/45</option>
+        <option value="60">1/60</option>
+        <option value="90">1/90</option>
+        <option value="125">1/125</option>
+        <option value="160">1/160</option>
+        <option value="200" selected>1/200</option>
+        <option value="250">1/250</option>
+        <option value="320">1/320</option>
+        <option value="500">1/500</option>
+        <option value="1000">1/1000</option>
+        <option value="2000">1/2000</option>
+        <option value="4000">1/4000</option>
+        <option value="8000">1/8000</option>
+      </select>
+    </div>
+    <div>
+      <label>ISO</label>
+      <select id="iso_apn">
+        <option value="50">ISO 50</option>
+        <option value="100" selected>ISO 100</option>
+        <option value="160">ISO 160</option>
+        <option value="200">ISO 200</option>
+        <option value="320">ISO 320</option>
+        <option value="400">ISO 400</option>
+        <option value="640">ISO 640</option>
+        <option value="800">ISO 800</option>
+        <option value="1600">ISO 1600</option>
+        <option value="3200">ISO 3200</option>
+        <option value="6400">ISO 6400</option>
+      </select>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 2. FLASH -->
+  <div class="sec">② Configuration flash</div>
+  <div class="g2">
+    <div>
+      <label>Rôle du flash</label>
+      <select id="flash_role">
+        <option value="0">💡 Key Light (principal)</option>
+        <option value="-1">🌒 Fill Light (−1 IL)</option>
+        <option value="-2">🌑 Fill Light (−2 IL)</option>
+        <option value="1">✨ Back Light (+1 IL)</option>
+        <option value="1.5">✨ Rim Light (+1.5 IL)</option>
+      </select>
+    </div>
+    <div>
+      <label>Puissance de test</label>
+      <div class="row">
+        <select id="p_base">
+          <option value="1">1/1 (pleine)</option>
+          <option value="2">1/2</option>
+          <option value="4">1/4</option>
+          <option value="8">1/8</option>
+          <option value="16">1/16</option>
+          <option value="32">1/32</option>
+          <option value="64">1/64</option>
+          <option value="128">1/128</option>
+          <option value="256">1/256</option>
+          <option value="512" selected>1/512</option>
+        </select>
+        <select id="p_tenths">
+          <option value="0">.0</option>
+          <option value="0.1">.1</option>
+          <option value="0.3">.3</option>
+          <option value="0.5">.5</option>
+          <option value="0.7">.7</option>
+          <option value="0.9">.9</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- 3. FLASHMÈTRE -->
+  <div class="sec">③ Mesure flashmètre</div>
+  <div class="row" style="margin-bottom:16px;">
+    <select id="f_mes_base">
+      <option value="1.0">f/1.0</option>
+      <option value="1.2">f/1.2</option>
+      <option value="1.4">f/1.4</option>
+      <option value="1.8">f/1.8</option>
+      <option value="2.0">f/2.0</option>
+      <option value="2.8">f/2.8</option>
+      <option value="4.0">f/4.0</option>
+      <option value="5.6" selected>f/5.6</option>
+      <option value="8.0">f/8.0</option>
+      <option value="11">f/11</option>
+      <option value="16">f/16</option>
+      <option value="22">f/22</option>
+      <option value="32">f/32</option>
+      <option value="45">f/45</option>
+    </select>
+    <select id="f_mes_tenths">
+      <option value="0">.0 IL</option>
+      <option value="0.1">.1 IL</option>
+      <option value="0.3">.3 IL</option>
+      <option value="0.5">.5 IL</option>
+      <option value="0.7">.7 IL</option>
+      <option value="0.9">.9 IL</option>
+    </select>
+  </div>
+
+  <!-- BOUTONS -->
+  <div class="btns">
+    <button class="btn btn-std" onclick="calc(0)">📐 Standard</button>
+    <button class="btn btn-opt" onclick="calc(1.33)">⭐ Opti +1.33 IL</button>
+  </div>
+
+  <div class="err" id="err">⚠️ Erreur de calcul — vérifiez vos valeurs.</div>
+
+  <!-- RÉSULTAT -->
+  <div id="result">
+    <div class="rl">Puissance flash recommandée</div>
+    <div class="rv" id="rv">--</div>
+    <div class="rc" id="rc"></div>
+    <div class="rd" id="rd"></div>
+  </div>
+
+  <a class="site-btn" href="https://www.souvenirnomade.com" target="_blank">
+    🌐 souvenirnomade.com
+  </a>
+
+</div>
+<script>
+function calc(opti) {
+  try {
+    var fT  = parseFloat(document.getElementById('f_target').value);
+    var vA  = parseFloat(document.getElementById('v_apn').value);
+    var iso = parseFloat(document.getElementById('iso_apn').value);
+    var fMB = parseFloat(document.getElementById('f_mes_base').value);
+    var fMT = parseFloat(document.getElementById('f_mes_tenths').value);
+    var pB  = parseInt(document.getElementById('p_base').value);
+    var pT  = parseFloat(document.getElementById('p_tenths').value);
+    var rol = parseFloat(document.getElementById('flash_role').value);
+
+    var sMes = 2 * Math.log2(fMB) + fMT;
+    var sTgt = 2 * Math.log2(fT);
+    var sISO = Math.log2(iso / 100);
+    var sV   = (vA > 200) ? Math.log2(vA / 200) : 0;
+
+    var corr   = (sTgt - sMes) - sISO + sV + opti + rol;
+    var tStops = (Math.log2(pB) + pT) - corr;
+    var raw    = Math.pow(2, tStops);
+
+    var std = [1,2,4,8,16,32,64,128,256,512];
+    var base = 512;
+    for (var i = 0; i < std.length; i++) {
+      if (std[i] >= raw) { base = std[i]; break; }
+    }
+    var t = Math.round((Math.log2(base) - Math.log2(raw)) * 10) / 10;
+    if (t < 0) t = 0;
+    if (t > 0.9) t = 0.9;
+
+    var sign = corr >= 0 ? '+' : '';
+    document.getElementById('rv').innerText = '1/' + base + (t > 0 ? ' +' + t.toFixed(1) : '');
+    document.getElementById('rc').innerText = 'Correction : ' + sign + corr.toFixed(2) + ' IL';
+    document.getElementById('rd').innerHTML = (opti > 0 ? '⭐ MODE OPTI +1.33 IL' : '📐 MODE STANDARD') +
+      '<br>ISO ' + iso + ' &nbsp;|&nbsp; f/' + fT + ' &nbsp;|&nbsp; 1/' + vA + 's';
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('err').style.display = 'none';
+    document.getElementById('result').scrollIntoView({behavior:'smooth',block:'nearest'});
+  } catch(e) {
+    document.getElementById('err').style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>
